@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29424.173
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{2C5BA58F-E2D1-4B9A-A158-CC04D4F3FE5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{C5F85794-59C4-49B8-976D-816E9C4C74CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortListener", "TcpListener\PortListener.csproj", "{E310CD6B-322C-4131-9E96-CAFB8C0442DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C5BA58F-E2D1-4B9A-A158-CC04D4F3FE5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C5BA58F-E2D1-4B9A-A158-CC04D4F3FE5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C5BA58F-E2D1-4B9A-A158-CC04D4F3FE5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C5BA58F-E2D1-4B9A-A158-CC04D4F3FE5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5F85794-59C4-49B8-976D-816E9C4C74CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5F85794-59C4-49B8-976D-816E9C4C74CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5F85794-59C4-49B8-976D-816E9C4C74CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5F85794-59C4-49B8-976D-816E9C4C74CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E310CD6B-322C-4131-9E96-CAFB8C0442DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E310CD6B-322C-4131-9E96-CAFB8C0442DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E310CD6B-322C-4131-9E96-CAFB8C0442DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E310CD6B-322C-4131-9E96-CAFB8C0442DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {89326BE4-405B-4DED-A1B8-02B1AE3E130D}
+	EndGlobalSection
+EndGlobal
