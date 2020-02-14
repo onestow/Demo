@@ -19,39 +19,14 @@ namespace Server
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class PerCallService : IService
     {
-        class WcfInfo
-        {
-            public int CallTimes { get; set; } = 0;
-            public IContextChannel Channel { get; set; }
-        }
-        static Dictionary<string, WcfInfo> clients = new Dictionary<string, WcfInfo>();
-        static object thisLock = new object();
         int Cnt = 0;
         public int Test()
         {
-            //Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss")}({Helper.GetRemoteIP(OperationContext.Current)}): {this.GetType().Name}");
             var ip = Helper.GetRemoteIP(OperationContext.Current);
-
-            lock (thisLock)
-            {
-                if (!clients.ContainsKey(ip))
-                    clients[ip] = new WcfInfo() { Channel = OperationContext.Current.Channel };
-                clients[ip].CallTimes += 1;
-            }
-
-            OperationContext.Current.Channel.Faulted += (s, e) =>  Output(1);
-            OperationContext.Current.Channel.Closed += (s, e) =>  Output(2);
-            Output(3);
+            Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss")}({ip}): {this.GetType().Name}");
+            OperationContext.Current.Channel.Faulted += (s, e) =>  Console.WriteLine($"(Faulted){DateTime.Now.ToString("HH:mm:ss")}({ip}): {this.GetType().Name}");
+            OperationContext.Current.Channel.Closed += (s, e) =>  Console.WriteLine($"(Closed){DateTime.Now.ToString("HH:mm:ss")}({ip}): {this.GetType().Name}");
             return Cnt++;
-        }
-
-        void Output(int nt)
-        {
-            lock (thisLock)
-            {
-                Console.Write("\r                                               \r");
-                Console.Write(string.Join(";\t", clients.Select(kv => $"{kv.Key}: {kv.Value.CallTimes}, {kv.Value.Channel.State}")));
-            }
         }
     }
 
@@ -61,7 +36,10 @@ namespace Server
         int Cnt = 0;
         public int Test()
         {
-            Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss")}({Helper.GetRemoteIP(OperationContext.Current)}): {this.GetType().Name}");
+            var ip = Helper.GetRemoteIP(OperationContext.Current);
+            Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss")}({ip}): {this.GetType().Name}");
+            OperationContext.Current.Channel.Faulted += (s, e) =>  Console.WriteLine($"(Faulted){DateTime.Now.ToString("HH:mm:ss")}({ip}): {this.GetType().Name}");
+            OperationContext.Current.Channel.Closed += (s, e) =>  Console.WriteLine($"(Closed){DateTime.Now.ToString("HH:mm:ss")}({ip}): {this.GetType().Name}");
             return Cnt++;
         }
     }
@@ -72,7 +50,10 @@ namespace Server
         int Cnt = 0;
         public int Test()
         {
-            Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss")}({Helper.GetRemoteIP(OperationContext.Current)}): {this.GetType().Name}");
+            var ip = Helper.GetRemoteIP(OperationContext.Current);
+            Console.WriteLine($"{DateTime.Now.ToString("HH:mm:ss")}({ip}): {this.GetType().Name}");
+            OperationContext.Current.Channel.Faulted += (s, e) =>  Console.WriteLine($"(Faulted){DateTime.Now.ToString("HH:mm:ss")}({ip}): {this.GetType().Name}");
+            OperationContext.Current.Channel.Closed += (s, e) =>  Console.WriteLine($"(Closed){DateTime.Now.ToString("HH:mm:ss")}({ip}): {this.GetType().Name}");
             return Cnt++;
         }
     }

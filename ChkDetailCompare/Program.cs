@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Client
+namespace ChkDetailCompare
 {
     static class Program
     {
@@ -18,6 +18,5 @@ namespace Client
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }
-
     }
 }

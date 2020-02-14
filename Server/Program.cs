@@ -16,6 +16,7 @@ namespace Server
             hosts.Add(TryOpen(typeof(PerCallService)));
             hosts.Add(TryOpen(typeof(PerSessionService)));
             hosts.Add(TryOpen(typeof(SingleService)));
+            //hosts.Add(TryOpen(typeof(CalculatorService)));
 
 
             Console.WriteLine("任意键结束...");

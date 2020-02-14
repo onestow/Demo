@@ -18,7 +18,12 @@ namespace Client
         public Form1()
         {
             InitializeComponent();
-            StartHeartBeat();
+            //StartHeartBeat();
+
+            Task.Run(() =>
+            {
+                //new CallBackService.CalculatorServiceClient(new System.ServiceModel.InstanceContext(new CalcCallback(this))).Add(2, 3);
+            });
         }
 
         #region 调用时创建连接
@@ -29,16 +34,18 @@ namespace Client
                 var res = client.Test();
                 tbPerCall.Text = res.ToString();
             }
-            using (var client = new PerSessionService.ServiceClient())
-            {
-                var res = client.Test();
-                tbPerSession.Text = res.ToString();
-            }
-            using (var client = new SingleService.ServiceClient())
-            {
-                var res = client.Test();
-                tbSingle.Text = res.ToString();
-            }
+            //Thread.Sleep(3000);
+            //using (var client = new PerSessionService.ServiceClient())
+            //{
+            //    var res = client.Test();
+            //    tbPerSession.Text = res.ToString();
+            //}
+            //Thread.Sleep(3000);
+            //using (var client = new SingleService.ServiceClient())
+            //{
+            //    var res = client.Test();
+            //    tbSingle.Text = res.ToString();
+            //}
         }
         #endregion
 
@@ -48,6 +55,8 @@ namespace Client
         SingleService.ServiceClient sClient = new SingleService.ServiceClient();
         private void btnStart_Click(object sender, EventArgs e)
         {
+            pcClient.InnerChannel.Faulted += (s, ea) => MessageBox.Show("Faulted");
+            pcClient.InnerChannel.Closed += (s, ea) => MessageBox.Show("Closed");
             tbPerCall2.Text = pcClient.Test().ToString();
             tbPerSession2.Text = psClient.Test().ToString();
             tbSingle2.Text = sClient.Test().ToString();
@@ -56,7 +65,7 @@ namespace Client
         #endregion
 
         #region maxcall测试
-        static int CallCnt = 10;
+        static int CallCnt = 5;
         string[] MaxCallMsgs = new string[CallCnt];
         private void btnMaxCall_Click(object sender, EventArgs e)
         {
@@ -140,16 +149,16 @@ namespace Client
         {
             try
             {
-                pcClient.Close();
-                psClient.Close();
-                sClient.Close();
-                heartbeatClient.Close();
+                //pcClient.Close();
+                //psClient.Close();
+                //sClient.Close();
+                //heartbeatClient.Close();
             }
             catch
             { }
         }
 
-        void Log(string msg)
+        public void Log(string msg)
         {
             if (tbMsg.InvokeRequired)
                 tbMsg.Invoke(new Action<string>((obj) => Log(obj)), msg);
@@ -161,6 +170,18 @@ namespace Client
         {
             var errMsg = ex.ToString().Split('\n');
             Log(msg + string.Join(" ", errMsg.Take(line)));
+        }
+    }
+    class CalcCallback : CallBackService.ICalculatorServiceCallback
+    {
+        private Form1 f;
+        public CalcCallback(Form1 f)
+        {
+            this.f = f;
+        }
+        public void DisplayResult(string msg)
+        {
+            f.Log(msg);
         }
     }
 }

@@ -48,6 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connected Services\CallBackService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\PerCallService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -83,6 +88,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Connected Services\CallBackService\service.wsdl" />
+    <None Include="Connected Services\CallBackService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CallBackService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\PerCallService\service.wsdl" />
     <None Include="Connected Services\PerCallService\service.xsd">
       <SubType>Designer</SubType>
@@ -121,6 +133,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\CallBackService\" />
     <WCFMetadataStorage Include="Connected Services\PerCallService\" />
     <WCFMetadataStorage Include="Connected Services\PerSessionService\" />
     <WCFMetadataStorage Include="Connected Services\SingleService\" />
@@ -157,6 +170,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\SingleService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CallBackService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CallBackService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CallBackService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
