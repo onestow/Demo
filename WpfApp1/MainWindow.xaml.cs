@@ -70,16 +70,14 @@ namespace WpfApp1
 
         private void ScrollViewerOffset(double offset)
         {
-            //scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + offset);
             var left = Math.Min(0, lbMenu.Margin.Left + offset);
-            left = Math.Max(left, -menu1ScrollableWidth);
+            left = Math.Max(left, lbMenu.Margin.Left - scrollViewer.ScrollableWidth);
             lbMenu.BeginAnimation(MarginProperty, new ThicknessAnimation()
             {
                 From = lbMenu.Margin,
                 To = new Thickness(left, 0, 0, 0),
                 Duration = new Duration(TimeSpan.FromMilliseconds(400)),
             });
-            //lbMenu.Margin = new Thickness(left, 0, 0, 0);
         }
 
     }
@@ -126,30 +124,33 @@ namespace WpfApp1
 
         public MainWindowViewModel()
         {
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件工具"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "指令签名"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD5"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD6"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD7"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD8"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD9"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD10"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD11"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD12"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD13"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD14"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD15"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD16"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD17"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD18"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD19"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD20"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD21"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD22"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD23"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD24"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD25"));
-            ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD26"));
+            if (true || DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            {
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件工具"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "指令签名"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD5"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD6"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD7"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD8"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD9"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD10"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD11"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD12"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD13"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD14"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD15"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD16"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD17"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD18"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD19"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD20"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD21"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD22"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD23"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD24"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD25"));
+                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD26"));
+            }
         }
     }
 }

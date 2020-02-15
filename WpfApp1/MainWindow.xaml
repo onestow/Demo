@@ -27,47 +27,54 @@
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Background="#0651AE" MouseLeftButtonDown="Header_MouseLeftButtonDown">
             <Label DockPanel.Dock="Left" Content="OSS工具箱" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="15"/>
-            <usercontrols:ImageButton DockPanel.Dock="Right" Image="Images/close32.png" Style="{StaticResource HeaderButtonStyle}" Click="Close_Click"/>
-            <usercontrols:ImageButton DockPanel.Dock="Right" Image="Images/maximize32.png" Style="{StaticResource HeaderButtonStyle}" Click="Max_Click"/>
-            <usercontrols:ImageButton DockPanel.Dock="Right" Image="Images/minimize32.png" Style="{StaticResource HeaderButtonStyle}" Click="Min_Click"/>
+            <Button DockPanel.Dock="Right" BorderThickness="0" Width="25" Click="Close_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="Images/close32.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+            <Button DockPanel.Dock="Right" BorderThickness="0" Width="25" Click="Max_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="Images/maximize32.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+            <Button DockPanel.Dock="Right" BorderThickness="0" Width="25" Click="Min_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="Images/minimize32.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
             <Grid/>
         </DockPanel>
         <DockPanel Grid.Row="1" Background="#1661BE">
-            <usercontrols:ImageButton DockPanel.Dock="Left" Image="Images/left-triangle64.png" Width="60" Style="{StaticResource Menu1ButtonStyle}" Click="LeftButton_Click"></usercontrols:ImageButton>
-            <usercontrols:ImageButton DockPanel.Dock="Right" Image="Images/right-triangle64.png" Width="60" Style="{StaticResource Menu1ButtonStyle}" Click="RightButton_Click"></usercontrols:ImageButton>
+            <Button Width="60" Style="{StaticResource StepButtonStyle}" DockPanel.Dock="Left" Click="LeftButton_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="Images/left-triangle64.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+            <Button Width="60" Style="{StaticResource StepButtonStyle}" DockPanel.Dock="Right" Click="RightButton_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="Images/right-triangle64.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
             <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Name="scrollViewer">
-                <ListBox Name="lbMenu" Background="{x:Null}" BorderThickness="0" ItemsSource="{Binding ListMenu}">
+                <ListBox Name="lbMenu" Background="{x:Null}" BorderThickness="0" ItemsSource="{Binding ListMenu}" SelectedItem="{Binding CurrMenu1}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" IsItemsHost="True" CanHorizontallyScroll="False"/>
+                            <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <usercontrols:ImageButton Image="{Binding Image}" Text="{Binding Text}" Style="{StaticResource Menu1ButtonStyle}" Height="70"
-                                                      Command="{Binding DataContext.Menu1Command, ElementName=mainWindow}" CommandParameter="{Binding .}"/>
+                            <StackPanel>
+                                <Image Stretch="Uniform" Source="{Binding Image}" Height="56"/>
+                                <TextBlock Text="{Binding Text}" HorizontalAlignment="Center"/>
+                            </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </ScrollViewer>
         </DockPanel>
         <Grid Grid.Row="2">
-            <!--<ScrollViewer VerticalScrollBarVisibility="Visible">-->
-            <ScrollViewer VerticalScrollBarVisibility="Visible">
-                <ListBox Background="{x:Null}" BorderThickness="0" ItemsSource="{Binding ListMenu}">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" IsItemsHost="True" CanHorizontallyScroll="False"/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <usercontrols:ImageButton Image="{Binding Image}" Text="{Binding Text}" Style="{StaticResource Menu1ButtonStyle}" Height="70"
-                                                      Command="{Binding DataContext.Menu1Command, ElementName=mainWindow}" CommandParameter="{Binding .}"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </ScrollViewer>
+            <Button Style="{StaticResource StepButtonStyle}" Content="okok"/>
         </Grid>
     </Grid>
 </Window>
