@@ -57,16 +57,18 @@ namespace WpfApp1
 
         private void LeftButton_Click(object sender, RoutedEventArgs e)
         {
-            ScrollViewerOffset(Math.Max(this.Width - 180, 100));
+            ScrollViewerOffset(Math.Max(this.Width - 200, 100));
         }
 
         private void RightButton_Click(object sender, RoutedEventArgs e)
         {
-            ScrollViewerOffset(-Math.Max(this.Width - 180, 100));
+            ScrollViewerOffset(-Math.Max(this.Width - 200, 100));
         }
 
         private void ScrollViewerOffset(double offset)
         {
+            if (offset == 0)
+                return;
             var left = Math.Min(0, lbMenu.Margin.Left + offset);
             left = Math.Max(left, lbMenu.Margin.Left - scrollViewer.ScrollableWidth);
             lbMenu.BeginAnimation(MarginProperty, new ThicknessAnimation()
