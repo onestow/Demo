@@ -38,4 +38,37 @@
         </Setter>
     </Style>
 
+
+    <!--<Style TargetType="{x:Type ListBoxItem}">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Grid SnapsToDevicePixels="true">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter Property="Background" Value="#44000000" TargetName="Border"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+
+
+    <!--<Style TargetType="{x:Type TreeViewItem}">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        --><!--<Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>--><!--
+        <Style.Resources>
+            --><!--SelectedItem with focus--><!--
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#000000"/>
+            --><!--SelectedItem without focus--><!--
+            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#1b222d"/>
+        </Style.Resources>
+    </Style>-->
+
 </ResourceDictionary>

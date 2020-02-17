@@ -24,6 +24,17 @@ namespace WpfApp1.Model
             }
         }
 
+        private Type _PageType;
+        public Type PageType
+        {
+            get => _PageType;
+            set
+            {
+                _PageType = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PageType)));
+            }
+        }
+
         private string _Text = "";
         public string Text
         {
@@ -35,6 +46,10 @@ namespace WpfApp1.Model
             }
         }
 
-        public ObservableCollection<Menu2> SubMenus { get; } = new ObservableCollection<Menu2>();
+        public Menu2(string text, Type pageType)
+        {
+            Text = text;
+            PageType = pageType;
+        }
     }
 }

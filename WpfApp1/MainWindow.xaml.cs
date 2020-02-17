@@ -1,20 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using WpfApp1.CustomAnimation;
 using WpfApp1.Model;
 
 namespace WpfApp1
@@ -28,6 +20,11 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+            SetNaviWidthByCount();
+            DependencyPropertyDescriptor.FromProperty(ListBox.ItemsSourceProperty, typeof(ListBox)).AddValueChanged(lbNavi, (o, e)=>
+            {
+                SetNaviWidthByCount();
+            });
         }
 
         private void mainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -80,77 +77,43 @@ namespace WpfApp1
             });
         }
 
-    }
-
-    public class MainWindowViewModel : INotifyPropertyChanged
-    {
-        #region property
-        public event PropertyChangedEventHandler PropertyChanged;
-        public ObservableCollection<Menu1> ListMenu { get; } = new ObservableCollection<Menu1>();
-
-        private Menu1 _CurrMenu1;
-        public Menu1 CurrMenu1
+        private void GridSplitter_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            get => _CurrMenu1;
-            set
-            {
-                _CurrMenu1 = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrMenu1)));
-            }
+            SetNaviWidthWithAnimation(cdNavi.Width.Value == 0 ? 150 : 0);
         }
 
-        private Menu2 _CurrMenu2;
-        public Menu2 CurrMenu2
+        private void SetNaviWidthWithAnimation(double width)
         {
-            get => _CurrMenu2;
-            set
+            if (cdNavi.Width.GridUnitType != GridUnitType.Pixel)
+                throw new Exception("仅支持 ColumnDefinition.Width.GridUnitType == GridUnitType.Pixel");
+
+            var animation = new GridLengthWidthAnimation
             {
-                _CurrMenu2 = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrMenu2)));
-            }
+                From = cdNavi.Width.Value,
+                To = width,
+                Duration = new Duration(TimeSpan.FromMilliseconds(200))
+            };
+            Storyboard.SetTarget(animation, cdNavi);
+            Storyboard.SetTargetProperty(animation, new PropertyPath("(ColumnDefinition.Width)"));
+            var sb = new Storyboard();
+            sb.Children.Add(animation);
+            sb.FillBehavior = FillBehavior.Stop;
+            sb.Completed += (sender1, e1) =>
+            {
+                cdNavi.Width = new GridLength(width);
+            };
+            sb.Begin();
         }
-        #endregion
 
-        #region command
-        public ICommand Menu1Command => new RelayCommand<Menu1>((model) =>
+        private void SetNaviWidthByCount()
         {
-            if (model == CurrMenu1)
-                return;
-
-            CurrMenu1 = model;
-            MessageBox.Show(model.Text);
-        });
-        #endregion
-
-        public MainWindowViewModel()
-        {
-            if (true || DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            if ((lbNavi.ItemsSource as ObservableCollection<Menu2>)?.Count > 1)
             {
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件工具"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "指令签名"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD5"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD6"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD7"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD8"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD9"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD10"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD11"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD12"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD13"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD14"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD15"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD16"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD17"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD18"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD19"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD20"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD21"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD22"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD23"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD24"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD25"));
-                ListMenu.Add(new Menu1("/Images/maximize64.png", "文件披露MD26"));
+                if (cdNavi.Width.Value == 0)
+                    SetNaviWidthWithAnimation(150);
             }
+            else
+                SetNaviWidthWithAnimation(0);
         }
     }
 }

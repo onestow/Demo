@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         xmlns:usercontrols="clr-namespace:WpfApp1.UserControls"
+        xmlns:converters="clr-namespace:WpfApp1.Converters"
         mc:Ignorable="d"
         Name="mainWindow"
         Loaded="mainWindow_Loaded"
@@ -17,15 +18,17 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Style\CommonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <converters:MainWindowRectVisibleConverter x:Key="visibleConverter"/>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
+    <Grid Background="#0651AE">
         <Grid.RowDefinitions>
             <RowDefinition Height="28"/>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*" MinHeight="200"/>
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0" Background="#0651AE" MouseLeftButtonDown="Header_MouseLeftButtonDown">
+        <!--标题、关闭、最大化最小化按钮-->
+        <DockPanel Grid.Row="0" VerticalAlignment="Top" MouseLeftButtonDown="Header_MouseLeftButtonDown">
             <Label DockPanel.Dock="Left" Content="OSS工具箱" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="15"/>
             <Button DockPanel.Dock="Right" BorderThickness="0" Width="25" Click="Close_Click">
                 <Button.Background>
@@ -44,7 +47,8 @@
             </Button>
             <Grid/>
         </DockPanel>
-        <DockPanel Grid.Row="1" Background="#1661BE">
+        <!--顶层一级菜单-->
+        <DockPanel Grid.Row="1" Height="80" VerticalAlignment="Center">
             <Button Width="60" Style="{StaticResource StepButtonStyle}" DockPanel.Dock="Left" Click="LeftButton_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="Images/left-triangle64.png" Stretch="Uniform"/>
@@ -64,17 +68,44 @@
                     </ListBox.ItemsPanel>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel>
+                            <StackPanel Margin="5, 0, 5, 0">
                                 <Image Stretch="Uniform" Source="{Binding Image}" Height="56"/>
-                                <TextBlock Text="{Binding Text}" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding Text}" HorizontalAlignment="Center" Foreground="White" FontSize="14"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </ScrollViewer>
         </DockPanel>
-        <Grid Grid.Row="2">
-            <Button Style="{StaticResource StepButtonStyle}" Content="okok"/>
+        <Grid Grid.Row="2" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" Name="cdNavi" MaxWidth="500"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--左侧二级菜单-->
+            <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                <ListBox Name="lbNavi" ItemsSource="{Binding CurrMenu1.SubMenus}" BorderThickness="0" SelectedItem="{Binding CurrMenu2}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0, 3, 0, 3">
+                                <Rectangle Width="3" Height="20" Fill="#88000000" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <Rectangle.Visibility>
+                                        <MultiBinding Converter="{StaticResource visibleConverter}">
+                                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Window, AncestorLevel=1}" Path="DataContext.CurrMenu2"/>
+                                            <Binding Path="."/>
+                                        </MultiBinding>
+                                    </Rectangle.Visibility>
+                                </Rectangle>
+                                <TextBlock Text="{Binding Text}" Margin="10, 0, 0, 0" FontSize="13"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+            <GridSplitter Grid.Column="1" Width="2" ResizeBehavior="PreviousAndNext" MouseDoubleClick="GridSplitter_MouseDoubleClick" Background="#88000000" Margin="3, 20, 3, 20"/>
+            <!--具体页面-->
+            <Frame Grid.Column="2" Content="{Binding CurrPage}" NavigationUIVisibility="Hidden"/>
         </Grid>
     </Grid>
 </Window>
