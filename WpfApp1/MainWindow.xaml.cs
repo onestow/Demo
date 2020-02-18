@@ -16,7 +16,6 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        double menu1ScrollableWidth;
         public MainWindow()
         {
             InitializeComponent();
@@ -25,11 +24,6 @@ namespace WpfApp1
             {
                 SetNaviWidthByCount();
             });
-        }
-
-        private void mainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            menu1ScrollableWidth = scrollViewer.ScrollableWidth;
         }
 
         private void Header_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -48,7 +42,7 @@ namespace WpfApp1
         }
         private void Max_Click(object sender, RoutedEventArgs e)
         {
-            this.WindowState = WindowState.Maximized;
+            this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
         }
         private void Min_Click(object sender, RoutedEventArgs e)
         {

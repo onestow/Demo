@@ -8,8 +8,7 @@
         xmlns:converters="clr-namespace:WpfApp1.Converters"
         mc:Ignorable="d"
         Name="mainWindow"
-        Loaded="mainWindow_Loaded"
-        Title="MainWindow" Height="550" Width="900" WindowStyle="None">
+        Title="MainWindow" Height="550" Width="900" WindowStyle="None" AllowsTransparency="True" ResizeMode="CanResizeWithGrip">
     <Window.DataContext>
         <local:MainWindowViewModel/>
     </Window.DataContext>
@@ -21,14 +20,14 @@
             <converters:MainWindowRectVisibleConverter x:Key="visibleConverter"/>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Background="#0651AE">
+    <Grid Background="#0651AE" Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="28"/>
             <RowDefinition Height="100"/>
             <RowDefinition Height="*" MinHeight="200"/>
         </Grid.RowDefinitions>
         <!--标题、关闭、最大化最小化按钮-->
-        <DockPanel Grid.Row="0" VerticalAlignment="Top" MouseLeftButtonDown="Header_MouseLeftButtonDown">
+        <DockPanel Background="#00000000" Grid.Row="0" VerticalAlignment="Top" MouseLeftButtonDown="Header_MouseLeftButtonDown">
             <Label DockPanel.Dock="Left" Content="OSS工具箱" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="15"/>
             <Button DockPanel.Dock="Right" BorderThickness="0" Width="25" Click="Close_Click">
                 <Button.Background>
