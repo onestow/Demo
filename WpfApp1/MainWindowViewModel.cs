@@ -102,7 +102,10 @@ namespace WpfApp1
                 {
                     var cnt = random.Next(3, 10);
                     if (menu1.Text == "指令签名")
-                        cnt = 1;
+                    {
+                        menu1.SubMenus.Add(new Menu2("日历demo", typeof(CalendarPage)));
+                        continue;
+                    }
                     for (int i = 0; i < cnt; i++)
                         menu1.SubMenus.Add(new Menu2(menu1.Text + "_" + i, typeof(Page1)));
                 }

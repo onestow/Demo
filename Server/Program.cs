@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Server.Test;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -11,6 +12,8 @@ namespace Server
     {
         static void Main(string[] args)
         {
+            new MD5Test().Run();
+            return;
             var hosts = new List<ServiceHost>();
 
             hosts.Add(TryOpen(typeof(PerCallService)));

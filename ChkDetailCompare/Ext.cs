@@ -18,6 +18,7 @@ namespace ChkDetailCompare
             return hash;
         }
 
+        //拆分排序再组合后传入
         public static long GetLongHashCode(this DataRow row, IEnumerable<string> fields)
         {
             long hash = 123456789L * 123456789L;

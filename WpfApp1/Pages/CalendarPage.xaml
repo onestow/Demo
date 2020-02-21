@@ -1,0 +1,88 @@
+﻿<Page x:Class="WpfApp1.Pages.CalendarPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1.Pages"
+      xmlns:converters="clr-namespace:WpfApp1.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      MinWidth="700"
+      Title="CalendarPage">
+    <Page.DataContext>
+        <local:CalendarViewModel/>
+    </Page.DataContext>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/WpfApp1;component/Style/CommonStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <converters:DateTimeToStringConverter x:Key="dateTimeConverter"/>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <Button Width="60" Style="{StaticResource StepButtonStyle}" DockPanel.Dock="Left" Command="{Binding NextDatesCommand}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Images/left-triangle64.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+            <Button Width="60" Style="{StaticResource StepButtonStyle}" DockPanel.Dock="Right" Command="{Binding PrevDatesCommand}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Images/right-triangle64.png" Stretch="Uniform"/>
+                </Button.Background>
+            </Button>
+            <ListBox ItemsSource="{Binding ListDate}" HorizontalContentAlignment="Center" BorderThickness="0" Background="#01000000">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="1"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="0, 5, 0, 0">
+                            <TextBlock HorizontalAlignment="Center" Text="{Binding ., Converter={StaticResource dateTimeConverter}, ConverterParameter=yyyy-MM-dd}"/>
+                            <TextBlock HorizontalAlignment="Center" Text="{Binding ., Converter={StaticResource dateTimeConverter}, ConverterParameter=DayOfWeek}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding ListData}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <GroupBox Header="{Binding Title}" BorderThickness="1" Margin="0, 20, 0, 0">
+                        <ItemsControl ItemsSource="{Binding ListProd}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Margin="10"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <!--<Label Content="{Binding .}" Margin="0, 0, 20, 0"/>-->
+                                    <Button BorderThickness="0" Margin="0, 0, 20, 0" Background="#01000000">
+                                        <Button.Content>
+                                            <Grid>
+                                                <TextBlock Text="{Binding .}" Margin="10, 0, 10, 0"/>
+                                            </Grid>
+                                        </Button.Content>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </GroupBox>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Page>
